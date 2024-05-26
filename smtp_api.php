@@ -4,7 +4,7 @@
 Plugin Name: SMTP API
 Plugin URI: https://wordpress.com
 Description: Um plugin criado para adicionar aos recursos API REST nativa do WORDPRESS a capacidade de enviar emails
-Version: 0.1
+Version: 0.2
 Author: Filipe Lopes
 Author URI: https://filipelopes.me
 License: CC BY-NC 3.0 BR

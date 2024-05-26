@@ -1,4 +1,12 @@
 <?php
+// Import PHPMailer classes into the global namespace
+// These must be at the top of your script, not inside a function
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+// Load Composer's autoloader
+require 'vendor/autoload.php';
 
 // API WP
 add_action('rest_api_init', function () {
@@ -11,13 +19,12 @@ add_action('rest_api_init', function () {
 function send_email($data)
 {
     global $wpdb;
-    require_once("phpmailer/class.phpmailer.php");
 
     $host = $wpdb->get_var("SELECT `value` FROM {$wpdb->prefix}smtp_api WHERE `key` = 'host' ");
     $user = $wpdb->get_var("SELECT `value` FROM {$wpdb->prefix}smtp_api WHERE `key` = 'user' ");
     $pass = $wpdb->get_var("SELECT `value` FROM {$wpdb->prefix}smtp_api WHERE `key` = 'password' ");
-    $to = "comercial.lithocenter@gmail.com";
-    $from = "naoresponda@filipelopes.me";
+    $to = $wpdb->get_var("SELECT `value` FROM {$wpdb->prefix}smtp_api WHERE `key` = 'to' ");
+    $from = $user;
 
     $name = $data["name"];
     $email = $data["email"];
@@ -25,12 +32,13 @@ function send_email($data)
     $message = $data["message"];
 
     $corpo_texto = "<p>" .
-        "{$message} **TESTE**<br/><br/>" .
+        "{$message}<br/><br/>" .
         "<b> {$name} </b><br/>" .
         "<sub>Enviada às: " . date("d-m-Y H:i:s") . "</sub><br/>" .
         "<p>";
 
-    $mail = new phpmailer();
+    // Create an instance; passing `true` enables exceptions
+    $mail = new PHPMailer(true);
     $mail->IsSMTP();
     $mail->HeaderLine("Content-type", "text/html");
     $mail->HeaderLine("charset", "utf-8");
@@ -38,7 +46,7 @@ function send_email($data)
     $mail->SetLanguage('br');
     $mail->addReplyTo($email, $name);
     $mail->From = $from;
-    $mail->FromName = "[LITHOCENTER] Servidor SMTP";
+    $mail->FromName = "[LITHOCENTER] Mensagem do Site";
     $mail->Host = $host;
     $mail->Port = 465;
     $mail->SMTPAuth = true;
