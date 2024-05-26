@@ -1,0 +1,91 @@
+$primary: #006799;
+
+input.smallControlersInput{
+    width: 50px;
+}
+
+div[data-level="1"]{
+    .nome{
+        font-size: 1.2em;
+        color: $primary;
+        font-weight: bold;
+        margin-top: 20px;
+    }
+}
+
+div[data-level="2"]{
+    margin-left: 20px;
+}
+
+div[data-level="3"]{
+    margin-left: 40px;
+}
+
+div[data-level="4"]{
+    margin-left: 60px;
+}
+
+div[data-level]{
+    .nome, .src{
+        outline: 0;
+        background: transparent;
+        border: 0;
+        box-shadow: none;
+        
+        &[value=""], &:focus{
+            background:rgba(255, 255, 255, 0.6);
+        }
+    }
+
+    .src{
+        color: #636363;
+        font-size: .9em;
+    }
+    
+}
+
+span.success{
+    background: #2c912c;
+    color: #fff;
+    padding: 5px 10px;
+    margin-top: 10px;
+    display: inline-block;
+    position: sticky;
+}
+
+span.error{
+    background: #a02727;
+    color: #fff;
+    padding: 5px 10px;
+    margin-top: 10px;
+    display: inline-block;
+    position: sticky;
+}
+
+a.wp-action-bt-like{
+    padding: 4px 8px;
+    position: relative;
+    text-decoration: none;
+    border: none;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    background: #f7f7f7;
+    text-shadow: none;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: normal;
+    color: #0073aa;
+    cursor: pointer;
+
+    &:hover{
+        border-color: #008ec2;
+        background: #00a0d2;
+        color: #fff;
+    }
+
+    &.hover{
+        border-color: #008ec2;
+        background: #00a0d2;
+        color: #fff;
+    }
+}
